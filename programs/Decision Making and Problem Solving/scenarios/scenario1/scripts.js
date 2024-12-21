@@ -243,7 +243,6 @@ function showModal(option) {
   const modalEntries = document.getElementById('modal-entries');
   const closeButton = document.querySelector('.close-button');
   const proceedButton = document.getElementById('proceed-button'); // Select the new Proceed button
-  const scenarioTitle=document.querySelector('.scenario');
 
   // Set the modal title and entries based on the option
   if (option === 'competitive') {
@@ -267,6 +266,8 @@ function showModal(option) {
      // Call the utility function with the API URL and next page URL
   // const apiUrl = 'https://example.com/api/validate'; // Replace with your API endpoint
   const nextPageUrl = 'page2.html'; // Replace with the target page
+  const scenarioTitle=document.querySelector('.scenario');
+
   
 
   let scenarioDetail={

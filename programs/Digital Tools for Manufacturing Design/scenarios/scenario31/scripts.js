@@ -282,6 +282,7 @@ function showModal(option) {
 proceedButton.onclick = function () {
 // window.location.href = 'page2.html';
  const nextPageUrl = 'page2.html'; // Replace with the target page
+  const scenarioTitle=document.querySelector('.scenario');
   
 
   let scenarioDetail={

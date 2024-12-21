@@ -11,6 +11,7 @@ chatbotIcon.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
   // Countdown Timer with Circular Progress
   const countdownDuration = 5 * 60; // 5 minutes in seconds
+let loadDataFlag=false;
   let remainingTime = countdownDuration;
   const timerElement = document.getElementById('countdown-timer');
   const progressCircle = document.querySelector('.progress');

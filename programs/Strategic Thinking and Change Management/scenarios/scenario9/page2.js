@@ -1,5 +1,6 @@
 // Countdown Timer Configuration
 const countdownDuration = 5 * 60; // 5 minutes in seconds
+let loadDataFlag=false;
 let remainingTime = countdownDuration;
 const timerElement = document.getElementById('countdown-timer');
 const progressCircle = document.querySelector('.progress');

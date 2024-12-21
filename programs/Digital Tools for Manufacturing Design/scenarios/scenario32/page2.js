@@ -2,6 +2,7 @@
 
 // Countdown Timer with Circular Progress
 const countdownDuration = 5 * 60; // 5 minutes in seconds
+let loadDataFlag=false;
 let remainingTime = countdownDuration;
 const timerElement = document.getElementById('countdown-timer');
 const progressCircle = document.querySelector('.progress');
@@ -72,13 +73,22 @@ expandableRows.forEach(row => {
       nextRows.push(sibling);
       sibling = sibling.nextElementSibling;
     }
-    nextRows.forEach(r => {
+       nextRows.forEach(r => {
       r.style.display = r.style.display === 'table-row' ? 'none' : 'table-row';
     });
     // Toggle icon
     if (icon.classList.contains('fa-plus')) {
       icon.classList.remove('fa-plus');
       icon.classList.add('fa-minus');
+      // Show Data
+      if(!loadDataFlag)
+        {
+          loadData();
+          loadDataFlag=true;
+        }
+      else{
+          console.log("Data Already Loaded");
+        }
     } else {
       icon.classList.remove('fa-minus');
       icon.classList.add('fa-plus');
