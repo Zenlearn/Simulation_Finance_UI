@@ -105,3 +105,4 @@ function formatResult(data,scenarioDetail,option)
   return {value:selectedValues,scenarioDetail,option};
 }
 
+// const expandableRows = document.querySelectorAll('.expandable');
