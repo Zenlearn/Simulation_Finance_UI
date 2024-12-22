@@ -88,15 +88,6 @@ expandableRows.forEach(row => {
       else{
           console.log("Data Already Loaded");
         }
-      // Show Data
-      if(!loadDataFlag)
-      {
-        loadData();
-        loadDataFlag=true;
-      }
-      else{
-        console.log("Data Already Loaded");
-      }
       
 
     } else {

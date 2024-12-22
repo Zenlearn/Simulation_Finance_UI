@@ -77,6 +77,7 @@ expandableRows.forEach(row => {
     if (icon.classList.contains('fa-plus')) {
       icon.classList.remove('fa-plus');
       icon.classList.add('fa-minus');
+      
     } else {
       icon.classList.remove('fa-minus');
       icon.classList.add('fa-plus');
@@ -279,20 +280,8 @@ function showModal(option) {
   document.body.style.overflow = 'hidden';
 
   // Add event listener to the Proceed button
-proceedButton.onclick = function () {
-// window.location.href = 'page2.html';
- const nextPageUrl = 'page2.html'; // Replace with the target page
-  const scenarioTitle=document.querySelector('.scenario');
-  
-
-  let scenarioDetail={
-    option,
-    scenario:scenarioTitle.innerText || "Default Scenario"
-  }
-  console.log("here",scenarioTitle.text);
-
-
-  proceedWithApiCall(1,option, nextPageUrl,scenarioDetail);
+  proceedButton.onclick = function () {
+    window.location.href = 'page2.html'; // Redirect to the next page
   };
 
   // Close the modal when the close button is clicked
