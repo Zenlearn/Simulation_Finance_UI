@@ -85,7 +85,7 @@ async function proceedWithApiCall(scenario, option,nextPageUrl,scenariondetails)
       console.log(localStorage.getItem('assetdata'))
   
       // Navigate to the next page
-      // window.location.href = nextPageUrl;
+      window.location.href = nextPageUrl;
      
      
     } catch (error) {
