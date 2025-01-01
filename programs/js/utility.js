@@ -1,5 +1,9 @@
 // utils.js
-let apiUrl="http://65.2.50.101:8088/api/simulation/calculated-amounts?scenarioId=1&bidOptionId=1"
+// let apiUrl="http://65.2.50.101:8088/api/simulation/calculated-amounts?scenarioId=1&bidOptionId=1"
+
+// import { mockresponse } from "./all_responses";
+// const mockresponse=require('./all_responses')
+const  baseUrl="http://65.2.50.101:8088/api/simulation/calculated-amounts?scenarioId="
 
 /**
  * Call an API and navigate to the next page.
@@ -10,47 +14,80 @@ async function proceedWithApiCall(scenario, option,nextPageUrl,scenariondetails)
     try {
       // Show a loading indicator (optional)
       document.body.style.cursor = 'wait';
+      apiUrl=baseUrl;
+     
 
-       // Set the OptionId based on the option
-      if (option === 'competitive') {
-        apiUrl+="&bidOptionId=1"
-      } else if (option === 'joint') {
-        apiUrl+="&bidOptionId=2"
+      // Use a regular expression to extract the number after 'scenario'
+      const match = window.location.href.match(/scenarios\/scenario(\d+)/);
+      let scenario=1;
+      console.log( window.location.href);
+
+      if (match) {
+        scenario=match[1];  // This will log '9'
+        console.log('Scenario ID  found',scenario);
+      } else {
+        console.log('Scenario ID not found ,assuming 1');
+      }
+          
+      
+
+      apiUrl+=scenario+"&bidOptionId="+getBidOption();
+      
+      console.log(apiUrl,scenario,option,nextPageUrl,scenariondetails)
+  
+      const response =await fetch(apiUrl, {
+        method: 'GET', // Change to POST if needed
+        headers: {
+          'Content-Type': 'Authorization',
+          'Origin': '0.0.0.0', // Set the origin to match your server setup
+        },
+        mode: 'cors', // Ensure CORS mode is enabled
+      });
+
+      if (!response.ok) {
+        throw new Error(`API call failed with status: ${response.status}`);
       }
   
-      // Make the API call
-      // const response = await fetch(apiUrl, {
-      //   method: 'GET', // Change to POST if needed
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      // });
-     
-  
-      // if (!response.ok) {
-      //   throw new Error(`API call failed with status: ${response.status}`);
-      // }
-  
-      // // Parse the API response if needed
-      // const result = await response.json();
-      // complete logic result.add{ "option":option,"details":scenariondetails}
+      // // // // Parse the API response if needed
+      let result = await response.json();
+      result = Object.assign({}, result, { option: option, details: scenariondetails });
 
-      let result={
-        "assets": [0, 2350000, 0, 0, 2350000, 0, 0, 0, 0, 2350000],
-        "liabilities": [0, 0, 0, 0, 0, 0, 0, 0, 2350000, 2350000],
-        "pnl": [5000000, -2500000, 7500000, 0, -150000, 0, 7650000, 0, 0, 7650000, 0, 7650000],
-        "cashflow": [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5],
-        "ratios": [2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5],
-        "option":option,
-        "details":scenariondetails
-      };
-      console.log('API Response:', result);
+       //Mock logic  start
+
+      // let result={
+      //   "assets": [0, 2350000, 0, 0, 2350000, 0, 0, 0, 0, 2350000],
+      //   "liabilities": [0, 0, 0, 0, 0, 0, 0, 0, 2350000, 2350000],
+      //   "pnl": [5000000, -2500000, 7500000, 0, -150000, 0, 7650000, 0, 0, 7650000, 0, 7650000],
+      //   "cashflow": [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5],
+      //   "ratios": [2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5],
+      //   "option":option,
+      //   "details":scenariondetails
+      // };
+      // console.log('API Response:', result);
+
+      // // 
+      // let mockresponsekey="scenario_"+scenario+"_bidOption_"+getBidOption();
+      // console.log("mockresponse key",mockresponsekey)
+
+      // let result=mockresponse[mockresponsekey]
+      // console.log("mockresponse key",mockresponsekey,result)
+      // //
+
+
+
+      // result=Object.assign({},result,{option,details:scenariondetails})
+
+        //Mock logic  stops
+
       let validResult=formatResult(result,scenariondetails,option);
 
       localStorage.setItem("assetdata",JSON.stringify(validResult));
+      console.log(localStorage.getItem('assetdata'))
   
       // Navigate to the next page
-      window.location.href = nextPageUrl;
+      // window.location.href = nextPageUrl;
+     
+     
     } catch (error) {
       console.error('Error during API call:', error);
       alert('Failed to proceed. Please try again later.'); // Display an error message to the user
@@ -106,3 +143,4 @@ function formatResult(data,scenarioDetail,option)
 }
 
 // const expandableRows = document.querySelectorAll('.expandable');
+

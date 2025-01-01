@@ -3,12 +3,25 @@ function table_cleaning()
 
 
 // Call the function
-removeValuationRatios();
+//  removeValuationRatios();
   console.log("table cleaning")
   
   // Call the function
-  updateProfitLossTable()
-
+  // updateProfitLossTable()
+   // Create a Promise that resolves when both tasks are complete
+   Promise.all([removeValuationRatios(), updateProfitLossTable()])
+   .then(() => {
+     // Trigger a custom event after both tasks are finished
+     const event = new CustomEvent('tableCleaningComplete');
+     document.dispatchEvent(event); 
+     console.log("table cleaning complete"); 
+   })
+   .catch(error => {
+     console.error("Error during table cleaning:", error);
+     // Optionally, trigger a different event for errors
+     const errorEvent = new CustomEvent('tableCleaningError', { detail: error });
+     document.dispatchEvent(errorEvent); 
+   });
 
 }
 

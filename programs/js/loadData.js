@@ -3,16 +3,16 @@
 
 
 // Expandable Rows in Tables
-const expandableRows = document.querySelectorAll('.expandable');
-expandableRows.forEach(row => {
+const expandableRows2 = document.querySelectorAll('.expandable');
+expandableRows2.forEach((row,index) => {
     console.log("expaning 'ogic")
+   
     
   row.addEventListener('click', () => {
     const icon = row.querySelector('i');
     const nextRows = [];
    
-    
- if (icon.classList.contains('fa-plus')) {
+  
     
     // Show Data
     if(!loadDataFlag)
@@ -23,12 +23,14 @@ expandableRows.forEach(row => {
     else{
         console.log("Data Already Loaded");
       }
-    } else {
-    //   icon.classList.remove('fa-minus');
-    //   icon.classList.add('fa-plus');
-    }
+   
   });
+
+  
 });
+
+
+
 function loadData()
     {
       //populate data 
@@ -64,3 +66,10 @@ function loadData()
     
     
 }
+
+
+document.addEventListener('tableCleaningComplete', () => {
+  // Code to execute after successful table cleaning
+ loadData();
+ loadDataFlag=true;
+});

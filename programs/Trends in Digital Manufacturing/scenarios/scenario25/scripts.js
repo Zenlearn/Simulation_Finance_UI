@@ -134,8 +134,9 @@ function showModal(option) {
 
   // Add event listener to the Proceed button
   proceedButton.onclick = function () {
-    window.location.href = 'page2.html'; // Redirect to the next page
+    // window.location.href = 'page2.html'; // Redirect to the next page
   };
+
 
   // Close the modal when the close button is clicked
   closeButton.onclick = function () {
